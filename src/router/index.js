@@ -1,28 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MainHome from '@/components/home/Home'
-import MainShop from '@/components/shop/Shop'
-import MainSearch from '@/components/search/Search'
+import ClassicDetail from '@/pages/detail/ClassicDetail'
+import Main from '@/pages/Main'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
-    {path: '/', redirect: '/home'},
-    {
-      path: '/home',
-      name: 'MainHome',
-      component: MainHome
-    },
-    {
-      path: '/shop',
-      name: 'MainShop',
-      component: MainShop
-    },
-    {
-      path: '/search',
-      name: 'MainSearch',
-      component: MainSearch
-    }
-  ]
+    //  默认直接进入路由
+    {path: '/', name: 'Main', component: Main},
+    {path: '/detail', name: 'ClassicDetail', component: ClassicDetail}
+  ],
+  // 页面切换时滚到顶部
+  scrollBehavior(to, from, savedPosition) {
+    return {x: 0, y: 0}
+  }
 })

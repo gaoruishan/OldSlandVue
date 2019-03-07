@@ -1,0 +1,18 @@
+/*默认字体大小*/
+.font {
+  font-size: .3rem;
+}
+
+/*无限旋转动画*/
+.rotateAnim {
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg)
+  }
+}
