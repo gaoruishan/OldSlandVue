@@ -3,9 +3,10 @@
   <div class='container'>
     <!-- 头部 -->
     <div class='header'>
-      <!-- 自定义组件的属性 -->
+      <!-- 日期时间组件 -->
       <date-time-cmp class='date-time' :index="classic.index"/>
       <div class='header-right'>
+        <!--点赞组件-->
         <like-cmp @onLikeComp="onLikeComp" :like="classic.like_status==1"
                   :count="classic.fav_nums"/>
         <!--<image-button-cmp class="share-icon" open-type="share">-->
@@ -14,14 +15,14 @@
       </div>
 
     </div>
-    <!-- 内容 -->
+    <!-- 内容:电影组件,音乐组件,句子组件 -->
     <movie-cmp v-if="classic.type==100" class='movie' :image="classic.image"
                :content="classic.content"/>
     <music-cmp v-if="classic.type==200" class='movie' :src="classic.url" :title="classic.title"
                :image="classic.image" :content="classic.content"/>
     <essay-cmp v-if="classic.type==300" class='movie' :image="classic.image"
                :content="classic.content"/>
-    <!-- 导航切换 -->
+    <!-- 导航切换组件 -->
     <div class="navi">
       <navi-cmp @onLeft="onLeft" @onRight="onRight" :last="last" :first="first"
                 :title="classic.title"/>
@@ -87,16 +88,22 @@
     },
     methods: {
       /**
-       * 子组件传递的数据
+       * 点赞,子组件传递的数据
        * @param e false  true
        */
       onLikeComp(e) {
         console.log(e)
       },
+      /**
+       * 内部方法,以_开头
+       */
       _updateIndex() {
         this.last = (this.index !== (this.resData.length - 1))
         this.first = (this.index !== 0)
       },
+      /**
+       * 导航向左(子组件传递)
+       */
       onLeft() {
         if (this.index > 0) {
           this.index = this.index - 1;
@@ -104,13 +111,9 @@
         }
         this._updateIndex()
       },
-      onRight() {
-        if (this.index < this.resData.length) {
-          this.index = this.index + 1;
-          this.classic = this.resData[this.index]
-        }
-        this._updateIndex()
-      },
+      /**
+       * 加载首页数据
+       */
       getClassicData() {
         if (this.$store.state.test) {
           console.log('%s%o', '测试:', localData)
@@ -126,7 +129,18 @@
               this.classic = res.data[this.index]
             }
           });
-      }
+      },
+      /**
+       * 导航向右
+       */
+      onRight() {
+        if (this.index < this.resData.length) {
+          this.index = this.index + 1;
+          this.classic = this.resData[this.index]
+        }
+        this._updateIndex()
+      },
+
     },
     mounted() {
       this.getClassicData();

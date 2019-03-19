@@ -23,6 +23,7 @@ body {background-color:#fff;font-family: Arial, "Microsoft Yahei", "Helvetica Ne
 hr {height: .02rem;margin: .1rem 0;border: medium none;border-top: .02rem solid #cacaca;}
 a {color: #25a4bb;text-decoration: none;}
 /*以iPhone6为设计图,屏幕宽度为375px,共有750个物理像素,font-size: 50px相当100个物理像素*/
-html {overflow-x: hidden;height: 100%;font-size: 50px;-webkit-tap-highlight-color: transparent;}
+/*最大宽度max-width: 420px*/
+html {margin:0 auto;overflow-x: hidden;height: 100%;font-size: 50px;-webkit-tap-highlight-color: transparent;max-width: 420px}
 /*修改标签文字默认字体*/
 div,span{font-size: .32rem;}

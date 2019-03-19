@@ -257,7 +257,12 @@
             },
             "plugins" : {
                 "speech" : {},
-                "maps" : {}
+                "maps" : {
+                    "baidu" : {
+                        "appkey_ios" : "AXZvaAPn3DfAsuLr1w6Tm7jWSKaECkdp",
+                        "appkey_android" : "Mfzm782DpGGKIRq2PH2LyPiSuxC3z9rD"
+                    }
+                }
             }
         }
     }

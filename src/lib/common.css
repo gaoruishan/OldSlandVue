@@ -7,7 +7,26 @@
 .rotateAnim {
   animation: rotate 3s linear infinite;
 }
+/*头部标题样式*/
+.header {
+  background-color: white;
+  color: black;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 99;
+}
 
+/* 半透明背景 */
+.mask-bg {
+  height: 100%;
+  width: 100%;
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  background: #000;
+  opacity: 0.5;
+}
 @keyframes rotate {
   from {
     transform: rotate(0deg)
