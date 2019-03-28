@@ -1,15 +1,18 @@
 <template>
-  <div class='container'>
-    <img :class="[playing?'image rotateAnim':'image']" :src='image'/>
-    <img class='play-icon' @click='onPlay' v-show="playing"
-         src='../../../assets/images/classic/player@playing.png'/>
-    <img class='play-icon' @click='onPlay' v-show="!playing"
-         src='../../../assets/images/classic/player@waitting.png'/>
-    <img class='img-tag' src='../../../assets/images/classic/music@tag.png'/>
-    <span class='txt'>{{content}}</span>
-    <audio ref="myaudio">
-      <source :src="src" type="audio/mpeg">
-    </audio>
+  <div>
+    <div class='container'>
+      <img v-show="playing" class="play-rotate" :src='image'/>
+      <img v-show="!playing" class="image" :src='image'/>
+      <img class='play-icon' @click='onPlay' v-show="playing"
+           src='../../../assets/images/classic/player@playing.png'/>
+      <img class='play-icon' @click='onPlay' v-show="!playing"
+           src='../../../assets/images/classic/player@waitting.png'/>
+      <img class='img-tag' src='../../../assets/images/classic/music@tag.png'/>
+      <span class='txt'>{{content}}</span>
+      <audio ref="myaudio">
+        <source :src="src" type="audio/mpeg">
+      </audio>
+    </div>
   </div>
 </template>
 
@@ -63,12 +66,69 @@
 </script>
 
 <style lang="stylus" scoped>
+  .play-rotate {
+    width: 420 * 0.01rem;
+    height: 420 * 0.01rem;
+    margin-top: 35 * 0.01rem;
+    border-radius: 50%;
+    animation: rotate 3s linear 0s infinite;
+    -webkit-animation: rotate 3s linear 0s infinite;
+    -moz-animation: rotate 3s linear 0s infinite;
+    -ms-animation: rotate 3s linear 0s infinite;
+    -o-animation: rotate 3s linear 0s infinite;
+  }
 
   .container {
     width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content center
     align-items: center;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg)
+    }
+    to {
+      transform: rotate(360deg)
+    }
+  }
+
+  @-webkit-keyframes rotate {
+    from {
+      -webkit-transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+
+  @-moz-keyframes rotate {
+    from {
+      -moz-transform: rotate(0deg);
+    }
+    to {
+      -moz-transform: rotate(360deg);
+    }
+  }
+
+  @-ms-keyframes rotate {
+    from {
+      -ms-transform: rotate(0deg);
+    }
+    to {
+      -ms-transform: rotate(360deg);
+    }
+  }
+
+  @-o-keyframes rotate {
+    from {
+      -o-transform: rotate(0deg);
+    }
+    to {
+      -o-transform: rotate(360deg);
+    }
   }
 
   .image {

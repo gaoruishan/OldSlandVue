@@ -39,6 +39,7 @@
 
 <style lang="stylus" scoped>
   .container {
+    width 80*0.01rem
     display: flex;
     flex-direction: row;
     padding: 10 * 0.01rem;

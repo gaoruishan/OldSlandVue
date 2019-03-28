@@ -5,19 +5,17 @@
     <mt-button type="danger" @click="showCamera">showCamera</mt-button>
     <mt-button type="danger" @click="showGallary">showGallary</mt-button>
     <mt-button type="danger" @click="showGallary2">showGallary2</mt-button>
-    <router-link to="/detail">
-      <mt-button type="danger">toNewPage</mt-button>
-    </router-link>
     <img style="height: 2rem" :src="imgSrc"/>
     <div class="mui-input-row">
       <label>用户名</label>
-      <input type="text" class="mui-input-clear font" placeholder="请输入用户名">
+      <input type="text" class="mui-input-clear g-font" placeholder="请输入用户名">
     </div>
   </div>
 
 </template>
 
 <script>
+  import Plus from '../../lib/plus'
 
   export default {
     name: 'CameraPlus',
@@ -49,43 +47,22 @@
         }
       },
       showCamera() {
-        // 获取设备默认的摄像头对象
-        let cmr = plus.camera.getCamera();
-        let res = cmr.supportedImageResolutions[0];
-        let fmt = cmr.supportedImageFormats[0];
-        this.$mui.toast("Resolution: " + res + ", Format: " + fmt);
-        cmr.captureImage((path) => {
-            // 通过URL参数获取目录对象或文件对象
-            plus.io.resolveLocalFileSystemURL(path, (entry) => {
-              //获取目录路径转换为本地路径URL地址
-              this.imgSrc = entry.toLocalURL();
-              this.$mui.toast("拍照成功 ", {duration: 'long'});
-            })
-          },
-          (error) => {
-            this.$mui.toast("拍照失败 " + error.message);
-          },
-          {resolution: res, format: fmt}
-        );
+        Plus.openCamera((path) => {
+          this.imgSrc = path;
+          this.$mui.toast("拍照成功 ", {duration: 'long'});
+        });
       },
       showGallary() {
         // 从相册中选择图片
-        plus.gallery.pick((path) => {
+        Plus.openGallery((path) => {
           this.imgSrc = path
-          this.$mui.toast(path, {duration: 'long'});
-        }, (e) => {
-          this.$mui.toast("取消选择图片");
-        }, {filter: "image"});
+        });
       },
       showGallary2() {
         // 从相册中选择多张图片
-        plus.gallery.pick((e) => {
-          for (let i in e.files) {
-            this.$mui.toast(e.files[i]);
-          }
-        }, (e) => {
-          this.$mui.toast("取消选择图片");
-        }, {filter: "image", multiple: true});
+        Plus.openGalleryMulti((path) => {
+          this.imgSrc = path[0]
+        });
       }
     }
   }

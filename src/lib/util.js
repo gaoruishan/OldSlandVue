@@ -104,18 +104,4 @@ export default {
       }
     }
   },
-  // 拍照
-  getImage() {
-    let cmr = plus.camera.getCamera();
-    cmr.captureImage(function (p) {
-      outLine('成功：' + p);
-      plus.io.resolveLocalFileSystemURL(p, function (entry) {
-        createItem(entry);
-      }, function (e) {
-        outLine('读取拍照文件错误：' + e.message);
-      });
-    }, function (e) {
-      outLine('失败：' + e.message);
-    }, {filename: '_doc/camera/', index: 1});
-  }
 }

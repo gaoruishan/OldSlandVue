@@ -1,39 +1,32 @@
 <template>
-  <div class="app-container">
+  <div>
     <!--内容-->
     <mt-tab-container v-model="selected">
-      <mt-tab-container-item :id="tabBars[0].name">
-        <main-classic></main-classic>
-      </mt-tab-container-item>
-      <mt-tab-container-item :id="tabBars[1].name">
-        <main-book></main-book>
-      </mt-tab-container-item>
-      <mt-tab-container-item :id="tabBars[2].name">
-        <main-my></main-my>
-      </mt-tab-container-item>
+      <main-classic v-show="tabBars[0].name===selected"/>
+      <main-book v-show="tabBars[1].name===selected"/>
+      <main-my v-show="tabBars[2].name===selected"/>
     </mt-tab-container>
     <!--底部tabbar-->
-    <mt-tabbar fixed v-model="selected">
+    <mt-tabbar fixed :style="this.$global.fixedHeight" v-model="selected">
       <mt-tab-item :id="tabBars[0].name">
-        <img slot="icon"
-             :src="selected===tabBars[0].name?tabBars[0].selectedImg:tabBars[0].unselectImg">
+        <img slot="icon" :src="switchImg(selected,0)">
         {{tabBars[0].name}}
       </mt-tab-item>
 
       <mt-tab-item :id="tabBars[1].name">
-        <img slot="icon"
-             :src="selected===tabBars[1].name?tabBars[1].selectedImg:tabBars[1].unselectImg">
+        <img slot="icon" :src="switchImg(selected,1)">
         {{tabBars[1].name}}
         <!--按顺序排列:添加小红点-->
         <span slot="icon" v-show="showRed" class="redspot">11</span>
       </mt-tab-item>
 
       <mt-tab-item :id="tabBars[2].name">
-        <img slot="icon"
-             :src="selected===tabBars[2].name?tabBars[2].selectedImg:tabBars[2].unselectImg">
+        <img slot="icon" :src="switchImg(selected,2)">
         {{tabBars[2].name}}
       </mt-tab-item>
     </mt-tabbar>
+    <!--空白块 修改底部tabbar遮挡问题-->
+    <div :style="this.$global.blockTabBar"></div>
   </div>
 </template>
 
@@ -73,22 +66,21 @@
       MainMy
     },
     created() {
+      console.log("main-created")
     },
-    methods: {}
+    mounted() {
+      console.log("main-mounted")
+    },
+    methods: {
+      switchImg(selected, i) {
+        return selected === this.tabBars[i].name ? this.tabBars[i].selectedImg : this.tabBars[i].unselectImg
+      }
+    }
 
   }
 </script>
 
 <style lang="stylus" scoped>
-
-  .app-container {
-    background-color white
-  }
-
-  /*修改底部tabbar遮挡问题*/
-  .mint-tab-container {
-    margin-bottom: 55px;
-  }
 
   /*tabbar默认字体颜色*/
   a {

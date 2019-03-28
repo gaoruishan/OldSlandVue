@@ -3,7 +3,7 @@
     "id" : "com.grs.oldsland", /*应用的标识*/
     "name" : "oldsland", /*应用名称，程序桌面图标名称*/
     "version" : {
-        "name" : "1.0", /*应用版本名称*/
+        "name" : "2.0", /*应用版本名称*/
         "code" : 20190304
     },
     "description" : "一个由Vue-cli打包成APP", /*应用描述信息*/
@@ -208,7 +208,7 @@
                         "spotlight" : "unpackage/res/icons/40x40.png",
                         "spotlight@2x" : "unpackage/res/icons/80x80.png"
                     },
-                    "appstore" : "assets/app_icon.png"
+                    "appstore" : "assets/icon.png"
                 },
                 "android" : {
                     "mdpi" : "unpackage/res/icons/48x48.png", /*普通屏程序图标，分辨率：48x48*/
@@ -223,17 +223,17 @@
                 "ios" : {
                     "iphone" : {
                         "default" : "", /*iPhone3启动图片选，分辨率：320x480*/
-                        "retina35" : "assets/app_launcher.png", /*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-                        "retina40" : "assets/app_launcher.png", /*4.0 英寸设备(iPhone5/iPhone5s)启动图片，分辨率：640x1136*/
-                        "retina47" : "assets/app_launcher.png", /*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
-                        "retina55" : "assets/app_launcher.png", /*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
+                        "retina35" : "assets/splash.png", /*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+                        "retina40" : "assets/splash.png", /*4.0 英寸设备(iPhone5/iPhone5s)启动图片，分辨率：640x1136*/
+                        "retina47" : "assets/splash.png", /*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
+                        "retina55" : "assets/splash.png", /*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
                         "retina55l" : "", /*5.5 英寸设备(iPhone6 Plus)横屏启动图片，分辨率：2208x1242*/
                         "retina40l" : "",
                         "retina47l" : "",
-                        "iphonex" : "assets/app_launcher.png",
+                        "iphonex" : "assets/splash.png",
                         "iphonexl" : "",
-                        "portrait-896h@2x" : "assets/app_launcher.png",
-                        "portrait-896h@3x" : "assets/app_launcher.png",
+                        "portrait-896h@2x" : "assets/splash.png",
+                        "portrait-896h@3x" : "assets/splash.png",
                         "landscape-896h@3x" : ""
                     },
                     "ipad" : {
@@ -250,19 +250,14 @@
                 "android" : {
                     "mdpi" : "", /*普通屏启动图片，分辨率：240x282*/
                     "ldpi" : "", /*大屏启动图片，分辨率：320x442*/
-                    "hdpi" : "assets/app_launcher.png", /*高分屏启动图片，分辨率：480x762*/
-                    "xhdpi" : "assets/app_launcher.png", /*720P高分屏启动图片，分辨率：720x1242*/
-                    "xxhdpi" : "assets/app_launcher.png" /*1080P高分屏启动图片，分辨率：1080x1882*/
+                    "hdpi" : "assets/splash.png", /*高分屏启动图片，分辨率：480x762*/
+                    "xhdpi" : "assets/splash.png", /*720P高分屏启动图片，分辨率：720x1242*/
+                    "xxhdpi" : "assets/splash.png" /*1080P高分屏启动图片，分辨率：1080x1882*/
                 }
             },
             "plugins" : {
                 "speech" : {},
-                "maps" : {
-                    "baidu" : {
-                        "appkey_ios" : "AXZvaAPn3DfAsuLr1w6Tm7jWSKaECkdp",
-                        "appkey_android" : "Mfzm782DpGGKIRq2PH2LyPiSuxC3z9rD"
-                    }
-                }
+                "maps" : {}
             }
         }
     }

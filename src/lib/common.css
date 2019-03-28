@@ -1,32 +1,40 @@
+/**
+* 添加样式必须带有'g-' 前缀
+*/
+
 /*默认字体大小*/
-.font {
+.g-font {
   font-size: .3rem;
+}
+.g-font26 {
+  font-size: .26rem;
+}
+
+/*常用高度*/
+.g-height-title {
+  height: .8rem;
+}
+.g-height20 {
+  height: .2rem;
+}
+/*flex方向*/
+.g-row-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.g-column-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /*无限旋转动画*/
-.rotateAnim {
+.g-rotate {
   animation: rotate 3s linear infinite;
 }
-/*头部标题样式*/
-.header {
-  background-color: white;
-  color: black;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 99;
-}
 
-/* 半透明背景 */
-.mask-bg {
-  height: 100%;
-  width: 100%;
-  z-index: 99;
-  position: fixed;
-  top: 0;
-  background: #000;
-  opacity: 0.5;
-}
 @keyframes rotate {
   from {
     transform: rotate(0deg)
@@ -35,3 +43,53 @@
     transform: rotate(360deg)
   }
 }
+
+/*头部标题样式*/
+.g-header {
+  background-color: white;
+  color: black;
+  width: 100%;
+  position: fixed;
+  /*可修改高度值*/
+  height: 0.86rem;
+  top: 0;
+  z-index: 99;
+}
+
+/* 半透明背景 */
+.g-mask-bg {
+  height: 100%;
+  width: 100%;
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  background: #000;
+  opacity: 0.5;
+}
+
+/* 底部加载(复制到CSS) */
+.g-loading {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+/* 中心加载(复制到CSS) */
+.g-loading-center {
+  background: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 99;
+}
+
+/* 固定 */
+.g-fixed {
+  position: fixed;
+  z-index: 99;
+}
+/*空白块*/
+.g-tabbar {
+  height: 1rem;
+}
+

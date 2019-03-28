@@ -12,7 +12,7 @@
 
 <script>
   import FadeAnimation from "./common/anim/FadeAnimation";
-
+  import Plus from './lib/plus'
   export default {
     name: 'App',
     components: {FadeAnimation},
@@ -22,7 +22,11 @@
         excludePage: ['BookDetail']
       }
     },
+    created() {
+      console.log("app-created")
+    },
     mounted() {
+      console.log("app-mounted")
       /*1,调用$mui,等ready后再初始化*/
       this.$mui.ready(() => {
         this.$mui.init({});
@@ -33,29 +37,26 @@
         if (this.$mui.os.android) {
           this.$mui.toast('android系统')
         }
+        console.log('%s%o', '是5+ App:', this.$mui.os.plus);
+        // 返回是否在 5+ App(包括流应用)运行
+        this.$store.state.test = this.$mui.os.plus;
       });
-      let store = this.$store;
 
-      /*2,调用plus,等plusready后才能直接使用:demo.xx.xxx()*/
-      function plusready() {
+      let store = this.$store;
+      /*
+      * 2,调用plus,等plusready后才能直接使用:demo.xx.xxx()
+      * 引入HTML5+API 等同于this.$mui.plusReady()
+      */
+      this.$mui.plusReady(() => {
         console.log('app-plusready');
-        // 位置
-        plus.geolocation.getCurrentPosition((p) => {
+        // 获取位置
+        Plus.getBaiDuLocation((p) => {
           store.commit('setLatitude', p.coords.latitude)
           store.commit('setLongitude', p.coords.longitude)
           store.commit('setAddresses', p.addresses)
-          this.$mui.toast(p.addresses)
-        }, function (e) {
-          console.log(e.message);
-        }, {provider: "baidu"});
-      }
-
-      /*引入HTML5+API*/
-      if (window.plus) {
-        plusready();
-      } else {
-        document.addEventListener('plusready', plusready, false);
-      }
+        });
+        Plus.addKeyBackListener();
+      });
     }
   }
 </script>

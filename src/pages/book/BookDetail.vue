@@ -1,77 +1,78 @@
 <template>
-  <div class="container">
-    <!--title-->
-    <!--需要引入border.css和common.css; header:头部样式; border-bottom:1像素底部边框-->
-    <mt-header class="header border-bottom" title="详情页">
-      <router-link to="/" slot="left">
-        <mt-button icon="back"></mt-button>
-      </router-link>
-    </mt-header>
-    <!--为了撑出一个header高度-->
-    <mt-header/>
-    <!-- 头部 -->
-    <div class='head'>
-      <img class='head-image' :src='bookDetail.image'/>
-      <span class='title'>{{bookDetail.title}}</span>
-      <span class='author'>{{bookDetail.author!=null?bookDetail.author[0]:''}}</span>
-    </div>
-    <!-- 评论 -->
-    <div class='comments'>
-      <span class='comments-title'>短评</span>
-      <div class='comment-container'>
-        <div v-for="item in comments" :key="item.id">
-          <book-tag-cmp :text="item.content" :num="'+'+item.nums"/>
+  <div>
+    <div class="container">
+      <!--title-->
+      <!--需要引入border.css和common.css; header:头部样式; border-bottom:1像素底部边框-->
+      <mt-header class="g-header border-bottom" title="详情页">
+        <router-link to="/" slot="left">
+          <mt-button icon="back"></mt-button>
+        </router-link>
+      </mt-header>
+      <!--为了撑出一个header高度-->
+      <mt-header/>
+      <!-- 头部 -->
+      <div class='head'>
+        <img class='head-image' :src='bookDetail.image'/>
+        <span class='title'>{{bookDetail.title}}</span>
+        <span class='author'>{{bookDetail.author!=null?bookDetail.author[0]:''}}</span>
+      </div>
+      <!-- 评论 -->
+      <div class='comments'>
+        <span class='comments-title'>短评</span>
+        <div class='comment-container'>
+          <div v-for="item in comments" :key="item.id">
+            <book-tag-cmp :text="item.content" :num="'+'+item.nums"/>
+          </div>
+        </div>
+      </div>
+      <!-- 内容 -->
+      <div class='content'>
+        <span class='comments-title'>内容简介</span>
+        <span :decode="true" class='content-text'>{{bookDetail.summary}}</span>
+      </div>
+      <!-- 书本信息 -->
+      <div class='book-info'>
+        <span class='comments-title'>书本信息</span>
+        <span class='book-info-text'>出版社 {{bookDetail.publisher}}</span>
+        <span class='book-info-text'>出版年 {{bookDetail.pubdate}}</span>
+        <span class='book-info-text'>页数 {{bookDetail.pages}}</span>
+        <span class='book-info-text'>定价 {{bookDetail.price}}</span>
+        <span class='book-info-text'>装帧 {{bookDetail.binding}}</span>
+      </div>
+
+      <div v-if="clicking" @click='cancelClick' class='g-mask-bg'/>
+      <!-- 底部弹框 -->
+      <div v-if="clicking" class='bottom-alert'>
+        <div class='bottom-btn'>
+          <span @click='cancelClick'>取消</span>
+        </div>
+        <div class='comment-container bottom-comments'>
+          <div v-for='(item,i) in comments' :key="i">
+            <book-tag-cmp @bindText="bindText" :text="item.content" :num="'+'+item.nums"/>
+          </div>
+        </div>
+      </div>
+      <!-- 底部评论 -->
+      <div class='bottom border-top'>
+        <div class='bottom-left' @click='onInputClick'>
+          <img class='bottom-edit' src='../../assets/images/book/edit.png'/>
+          <input :autofocus="clicking" :placeholder='input' @change="onInputChange"
+                 v-model='inputValue'
+                 class='bottom-input'/>
+        </div>
+        <div class='bottom-right'>
+          <like-cmp/>
+          <img class="share" src="../../assets/images/icon/share.png"/>
         </div>
       </div>
     </div>
-    <!-- 内容 -->
-    <div class='content'>
-      <span class='comments-title'>内容简介</span>
-      <span :decode="true" class='content-text'>{{bookDetail.summary}}</span>
-    </div>
-    <!-- 书本信息 -->
-    <div class='book-info'>
-      <span class='comments-title'>书本信息</span>
-      <span class='book-info-text'>出版社 {{bookDetail.publisher}}</span>
-      <span class='book-info-text'>出版年 {{bookDetail.pubdate}}</span>
-      <span class='book-info-text'>页数 {{bookDetail.pages}}</span>
-      <span class='book-info-text'>定价 {{bookDetail.price}}</span>
-      <span class='book-info-text'>装帧 {{bookDetail.binding}}</span>
-    </div>
-
-    <div v-if="clicking" @click='cancelClick' class='mask-bg'/>
-    <!-- 底部弹框 -->
-    <div v-if="clicking" class='bottom-alert'>
-      <div class='bottom-btn'>
-        <span @click='cancelClick'>取消</span>
-      </div>
-      <div class='comment-container bottom-comments'>
-        <div v-for='(item,i) in comments' :key="i">
-          <book-tag-cmp @bindText="bindText" :text="item.content" :num="'+'+item.nums"/>
-        </div>
-      </div>
-    </div>
-    <!-- 底部评论 -->
-    <div class='bottom'>
-      <div class='bottom-left' @click='onInputClick'>
-        <img class='bottom-edit' src='../../assets/images/book/edit.png'/>
-        <input :autofocus="clicking" :placeholder='input' @change="onInputChange"
-               v-model='inputValue'
-               class='bottom-input'/>
-      </div>
-      <div class='bottom-right'>
-        <like-cmp/>
-        <img class="share" src="../../assets/images/icon/share.png"/>
-      </div>
-    </div>
-
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
   import BookTagCmp from './components/BookTagCmp'
   import LikeCmp from '../classic/components/LikeCmp'
+  import Http from '../../Http'
 
   export default {
     name: "BookDetail",
@@ -94,18 +95,6 @@
     },
     computed: {},
     methods: {
-      getDetailInfo() {
-        axios.get('/api/book-detail.json').then((res) => {
-          console.log(res);
-          this.bookDetail = res.data;
-        })
-      },
-      getDetailCommit() {
-        axios.get('/api/book-commit.json').then((res) => {
-          console.log(res);
-          this.comments = res.data.comment;
-        })
-      },
       bindText(e) {
         console.log('%s%o', '测试:', e)
       },
@@ -139,8 +128,12 @@
     mounted() {
       this.id = this.$route.params.id;
       console.log(this.id);
-      this.getDetailInfo();
-      this.getDetailCommit();
+      Http.getDetailInfo((res) => {
+        this.bookDetail = res;
+      });
+      Http.getDetailCommit((res) => {
+        this.comments = res.comment;
+      });
     }
   }
 </script>

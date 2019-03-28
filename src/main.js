@@ -23,6 +23,10 @@ import './lib/reset.css'
 import './lib/border.css'
 // 公共样式
 import './lib/common.css'
+// 全局变量
+import global from './lib/common'
+// this.$global的方式调用
+Vue.prototype.$global = global;
 
 Vue.use(MintUI);
 Vue.config.productionTip = false;

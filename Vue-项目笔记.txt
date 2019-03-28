@@ -1,4 +1,12 @@
 
+默认说明:
+1,div标签: 默认垂直方向
+2,flex布局: 默认水平方法
+3,父组件会默认给子组件根元素添加scopedId
+4,组父组件中, 不要给子组件 再添加样式!
+5,移动端,对position的absolute和fixed不友好! 少用!
+
+
 常用库
 1,css库
 Hover.css是一套使用CSS3动画实现的Hover特效集锦
@@ -316,3 +324,90 @@ watch: {
     所以下面的表达式结果为true： strA == strB。
     2)使用"严格"的"==="，它在求值时不会这么宽容，不会进行类型转换。
     所以表达式strA === strB的值为false，虽然两个变量持有的值相同。
+
+33,js数组方法大全
+   https://www.cnblogs.com/obel/p/7016414.html
+   常用方法:
+   1)join() 将数组的元素组起一个字符串,默认用逗号为分隔符
+   2)push()和pop() 将数组的尾部元素添加/删除
+   3)unshift() 和 shift() 将数组的头部元素添加/删除
+   4)sort() 按升序排列数组项——即最小的值位于最前面，最大的值排在最后面(调用每个数组项的 toString()转型方法，然后比较得到的字符串)
+   5)reverse() 反转数组项的顺序
+   6)concat() 将参数添加到原数组中,添加到这个副本的末尾
+   7)slice() 指定开始下标到结束下标之间的项组成的新数组
+   8)splice() 很强大的数组方法，它有很多种用法，可以实现删除、插入和替换。
+    var arr = [1,3,5,7,9,11];
+    删除: splice(0,2)会删除数组中的前两项
+       var arrRemoved = arr.splice(0,2);
+       console.log(arr); //[5, 7, 9, 11] 下面使用时已经变了
+    插入: splice(2,0,4,6)会从当前数组的位置 2 开始插入4和6。
+       console.log(arr); // [5, 7, 4, 6, 9, 11]
+   9)indexOf() 两个参数:要查找的项 和查找起点位置的索引
+      var arr = [1,3,5,7,7,5,3,1];
+      console.log(arr.indexOf(5)); //下标2
+   10)forEach() 数组进行遍历循环;默认参数:内容,索引,本身
+      var arr = [1, 2, 3, 4, 5];
+      arr.forEach(function(x, index, a){
+         console.log(x + '|' + index + '|' + (a === arr));
+      });
+   11)map() 指“映射”，对数组中的每一项运行给定函数
+      var arr = [1, 2, 3, 4, 5];
+      var arr2 = arr.map(function(item){
+        return item*item;
+      });
+      console.log(arr2); //[1, 4, 9, 16, 25]
+
+   12)filter() “过滤”功能，数组中的每一项运行给定函数，返回满足过滤条件组成的数组
+      var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      var arr2 = arr.filter(function(x, index) {
+        return index % 3 === 0 || x >= 8;
+      });
+      console.log(arr2); //[1, 4, 7, 8, 9, 10] 去掉3的倍数
+   13)every() 判断数组中每一项都是否满足条件，只有所有项都满足条件，才会返回true
+      var arr = [1, 2, 3, 4, 5];
+      var arr2 = arr.every(function(x) {
+        return x < 10;
+      });
+      console.log(arr2); //true
+    14)some() 判断数组中是否存在满足条件的项，只要有一项满足条件，就会返回true。
+        var arr = [1, 2, 3, 4, 5];
+        var arr2 = arr.some(function(x) {
+          return x < 3;
+        });
+        console.log(arr2); //true
+
+34,使用引入组件时,要加上./
+  import BookTagCmp from './BookTagCmp'
+
+35,使用v-html标签添加富文本,css样式加>>>    <div v-html="detail.content"></div>
+
+36,  路由传参:
+      // 1,使用name+params 参数类型不变
+      // this.$router.push({
+      //   name: 'NewsDetail',
+      //   params: { index },
+      // });
+      // 2,直接path拼接参数 参数string
+      this.$router.push(`/newsinformation/NewsDetail/${index}`);
+
+37,export default命令用于指定模块的默认输出。显然，一个模块只能有一个默认输出，因此export default命令只能使用一次。
+// 第一组是使用export default时，对应的import语句不需要使用大括号；
+export default function crc32() { // 输出
+  // ...
+}
+
+import crc32 from 'crc32'; // 输入
+
+// 第二组是不使用export default时，对应的import语句需要使用大括号。
+export function crc32() { // 输出
+  // ...
+};
+
+import {crc32} from 'crc32'; // 输入
+
+38, vue组件中的样式属性：scoped，解决在父组件中无法修改子组件样式问题
+https://www.cnblogs.com/goloving/p/9119265.html
+
+39, 移动端解决fixed和input获取焦点软键盘弹出影响定位的问题
+//一开始的屏幕高度,减去tabBar高度55
+fixedHeight: {top: (document.documentElement.clientHeight - 55) + 'px'},

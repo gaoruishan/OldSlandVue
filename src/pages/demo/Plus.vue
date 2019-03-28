@@ -6,35 +6,40 @@
       </router-link>
       <mt-button icon="more" slot="right"></mt-button>
     </mt-header>
+    <router-link to="/demo/scroller">
+      <mt-button type="danger">toNewPage</mt-button>
+    </router-link>
     <!--相机/相册-->
     <camera-plus/>
-    <!--地图-->
+    <!--地图-原生-->
     <map-plus/>
+    <!--地图-web-->
+    <map-html/>
+    <!--无限旋转-->
+    <rotate-anim/>
   </div>
 </template>
 
 <script>
   import CameraPlus from './CameraPlus'
   import MapPlus from './MapPlus'
+  import MapHtml from './MapHtml'
+  import RotateAnim from './RotateAnim'
 
   export default {
     name: "Plus",
-    components: {MapPlus, CameraPlus},
+    components: {MapHtml, MapPlus, CameraPlus,RotateAnim},
     props: {},
     comments: {
       CameraPlus,
-      MapPlus
+      MapPlus,
+      MapHtml
     },
     data() {
       return {}
     },
     methods: {},
-    mounted() {
-      // 真机-实体返回键,点击不退出程序
-      plus.key.addEventListener("backbutton", () => {
-        this.$mui.toast('点击实体返回键')
-      });
-    }
+
   }
 </script>
 

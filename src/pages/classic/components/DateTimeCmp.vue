@@ -51,6 +51,7 @@ export default {
   .container {
     display: flex;
     flex-direction: row;
+    margin-left: 30 * 0.01rem;
   }
 
   /* 文本对齐 */

@@ -1,13 +1,15 @@
 <template>
-  <div @click='toDetail(bookModel.id)' class='container'>
-    <img class='img' :src='bookModel.image'/>
-    <div class='content'>
-      <span class='title'>{{bookModel.title}}</span>
-      <span class='text'>{{bookModel.author}}</span>
-      <div class='foot'>
-        <span class='text'>{{bookModel.fav_nums}}喜欢</span>
-        <div class='point'/>
-        <span class='text'>{{bookModel.comment}}短评</span>
+  <div>
+    <div @click='toDetail(bookModel.id)' class='container'>
+      <img class='img' :src='bookModel.image'/>
+      <div class='content'>
+        <span class='title'>{{bookModel.title}}</span>
+        <span class='text'>{{bookModel.author}}</span>
+        <div class='foot'>
+          <span class='text'>{{bookModel.fav_nums}}喜欢</span>
+          <div class='point'/>
+          <span class='text'>{{bookModel.comment}}短评</span>
+        </div>
       </div>
     </div>
   </div>
@@ -24,7 +26,7 @@
     },
     methods: {
       toDetail(id) {
-        this.$router.push('/book/detail/'+id)
+        this.$router.push('/book/detail/' + id)
       }
     }
   }
