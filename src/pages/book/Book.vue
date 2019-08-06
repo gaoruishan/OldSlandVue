@@ -37,7 +37,7 @@
 <script>
   import BookCmp from './components/BookCmp'
   import SearchCmp from './components/SearchCmp'
-  import Http from '../../Http'
+  import Http from '../../http'
   import { Indicator } from 'mint-ui';
   export default {
     name: 'MainBook',

@@ -11,7 +11,7 @@
       <mt-header style="background-color: transparent"/>
       <div class="g-height20"></div>
       <div v-for="(item,idx) of bookList" :key="idx">
-        <book-item-cmp/>
+        <book-item-cmp :book-model="item" />
       </div>
     </div>
   </div>
@@ -19,6 +19,7 @@
 
 <script>
   import BookItemCmp from './components/BookItemCmp'
+  import Http from '../../http'
 
   export default {
     name: "MyBook",
@@ -26,18 +27,26 @@
     components: {BookItemCmp},
     data() {
       return {
-        bookList:[1,2,3,4,5,6,7,8,9,0]
+        bookList: []
       }
     },
-    methods: {}
+    methods: {
+    },
+    mounted() {
+      Http.getLikeBookList((res) => {
+        this.bookList = res
+      })
+    }
   }
 </script>
 
 <style lang="stylus" scoped>
   .container {
+    width:100%
+    height: 100%
+    position absolute
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     background-color: #eee;
   }

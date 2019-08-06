@@ -14,9 +14,11 @@ module.exports = {
     proxyTable: {
       '/api': {
         // 正式接口调试改变URL
-        target: 'http://localhost:8080',
+        // target: 'http://localhost:8080',
+        target: 'https://gaoruishan.cn:3000/v1/',
+        changeOrigin:true,
         pathRewrite: {
-          '^/api': '/static'
+          '^/api': ''
         }
       }
     },

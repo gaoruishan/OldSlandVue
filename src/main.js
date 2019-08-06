@@ -24,7 +24,7 @@ import './lib/border.css'
 // 公共样式
 import './lib/common.css'
 // 全局变量
-import global from './lib/common'
+import global from './lib/config'
 // this.$global的方式调用
 Vue.prototype.$global = global;
 

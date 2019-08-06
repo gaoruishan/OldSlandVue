@@ -39,8 +39,8 @@
 <script>
   import BookTagCmp from './BookTagCmp'
   import BookCmp from './BookCmp'
-  import Http from '../../../Http'
-  import LocalStorage from '../../../LocalStorage'
+  import Http from '../../../http'
+  import LocalStorage from '../../../local-storage'
 
   export default {
     name: "SearchCmp",
@@ -62,25 +62,27 @@
       },
       bindText(val) {
         this.inputValue = val;
+        this.getBookSearchList(val)
       },
       onCancel() {
         this.$emit("onCancel", false)
       },
       onInputChange() {
         if (this.inputValue) {
-          this.loading = this.showBook = true;
-          LocalStorage.addHistory(this.inputValue);
-          Http.getBookList((res) => {
-            console.log(res.books);
-            this.bookList = res.books;
-            this.loading = false;
-          })
+          this.getBookSearchList(this.inputValue)
         }
+      },
+      getBookSearchList (q) {
+        this.loading = this.showBook = true
+        LocalStorage.addHistory(q)
+        Http.getBookSearchList(q, (res) => {
+          this.bookList = res.books
+          this.loading = false
+        })
       }
     },
     mounted() {
       this.history = LocalStorage.getHistoryList();
-      console.log(this.history);
     }
   }
 </script>
@@ -151,7 +153,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    margin 0.2rem 0
+    margin 120 * 0.01rem 0 0 0.2rem
   }
 
   .history {

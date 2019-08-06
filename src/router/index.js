@@ -20,7 +20,7 @@ export default new Router({
     {path: '/my/course', name: 'Course', component: Course},
     {path: '/my/about', name: 'About', component: About},
     {path: '/my/mybook', name: 'MyBook', component: MyBook},
-    {path: '/my/mylikedetail/:id', name: 'MyLikeDetail', component: MyLikeDetail},
+    {path: '/my/mylikedetail/:id/:type', name: 'MyLikeDetail', component: MyLikeDetail},
     {path: '/demo', name: 'Plus', component: Plus},
     {path: '/demo/scroller', name: 'Scroller', component: Scroller}
   ],

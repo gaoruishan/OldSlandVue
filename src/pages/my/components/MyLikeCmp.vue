@@ -39,7 +39,7 @@
     },
     methods: {
       onLikeBook() {
-        this.$router.push('/my/mylikedetail/' + this.book.id);
+        this.$router.push('/my/mylikedetail/' + this.book.id+"/"+this.book.type);
       }
     }
   }

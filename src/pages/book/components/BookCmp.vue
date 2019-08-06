@@ -4,7 +4,7 @@
       <img class='img' :src='bookModel.image'/>
       <div class='content'>
         <span class='title'>{{bookModel.title}}</span>
-        <span class='text'>{{bookModel.author}}</span>
+        <span class='text g-singline'>{{bookModel.author}}</span>
         <div class='foot'>
           <span class='text'>{{bookModel.fav_nums}}喜欢</span>
           <div class='point'/>
@@ -37,7 +37,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
     box-shadow: 0 0 .3rem 0 #999;
     margin 0 .3rem .3rem .3rem
   }
@@ -65,6 +64,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 28 * 0.01rem;
+    margin-bottom .03rem
   }
 
   .text {

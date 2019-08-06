@@ -21,5 +21,5 @@ export default {
   .v-enter, .v-leave-to
     opacity: 0
   .v-enter-active, .v-leave-active
-    transition: opacity .5s
+    transition: opacity 1s
 </style>

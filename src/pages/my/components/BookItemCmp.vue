@@ -1,11 +1,11 @@
 <template>
   <!--添加'占位'div,为了防止父组件样式'污染'-->
   <div>
-    <div class="container">
-      <img class='item-image' src='https://img3.doubanio.com/lpic/s3435132.jpg'/>
+    <div @click='toDetail(bookModel.id,bookModel.type)' class="container">
+      <img class='item-image' :src='bookModel.image'/>
       <div class='item-content'>
-        <span class='item-title'>Python源码剖析</span>
-        <span class='item-name'>陈儒</span>
+        <span class='item-title'>{{bookModel.title}}</span>
+        <span class='item-name'>{{bookModel.author}}</span>
       </div>
       <img class='item-like' src="../../../assets/images/like/like.png"/>
     </div>
@@ -16,12 +16,17 @@
   export default {
     name: "BookItemCmp",
     props: {
-      like: Boolean
+      bookModel:Object,
+      like: Boolean,
     },
     data() {
       return {}
     },
-    methods: {}
+    methods: {
+      toDetail(id,type) {
+        this.$router.push('/book/detail/' + id)
+      }
+    }
   }
 </script>
 

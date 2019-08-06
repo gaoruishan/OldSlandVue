@@ -37,7 +37,7 @@
 
 <script>
   import Classic from '../classic/Classic'
-  import Http from '../../Http'
+  import Http from '../../http'
   import DateTimeCmp from '../classic/components/DateTimeCmp'
   import LikeCmp from '../classic/components/LikeCmp'
   import MovieCmp from '../classic/components/MovieCmp'
@@ -67,18 +67,15 @@
       }
     },
     activated() {
-      this.id = parseInt(this.$route.params.id);
-      Http.getClassicData((res) => {
-        for (const re of res) {
-          if (re.id === this.id) {
-            this.classic = re;
-            break;
-          }
-        }
-      });
     },
     mounted() {
-
+     const id = parseInt(this.$route.params.id);
+      const type = parseInt(this.$route.params.type);
+      console.log(id)
+      console.log(type)
+      Http.getClassicDetail(id,type,(res) => {
+        this.classic = res;
+      });
     }
   }
 </script>

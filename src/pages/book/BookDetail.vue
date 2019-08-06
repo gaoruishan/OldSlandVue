@@ -61,7 +61,9 @@
                  class='bottom-input'/>
         </div>
         <div class='bottom-right'>
-          <like-cmp/>
+          <!--点赞组件-->
+          <like-cmp @onLikeComp="onLikeComp" :like="like_status"
+                    :count="fav_nums"/>
           <img class="share" src="../../assets/images/icon/share.png"/>
         </div>
       </div>
@@ -72,7 +74,7 @@
 <script>
   import BookTagCmp from './components/BookTagCmp'
   import LikeCmp from '../classic/components/LikeCmp'
-  import Http from '../../Http'
+  import Http from '../../http'
 
   export default {
     name: "BookDetail",
@@ -91,47 +93,83 @@
         clicking: false,
         inputValue: "",
         loading: true,
+        like_status:false,
+        fav_nums:0,
       }
     },
     computed: {},
     methods: {
-      bindText(e) {
-        console.log('%s%o', '测试:', e)
+      /**
+       * 点赞,子组件传递的数据
+       * @param like false  true
+       */
+      onLikeComp(like) {
+        console.log(like)
+        const art_id = this.bookDetail.id
+        const type = this.bookDetail.type
+        if (like){
+          Http.onLike(art_id, type, (data) => {
+
+          })
+        }else{
+          Http.disLike(art_id, type, (data) => {
+
+          })
+        }
       },
+      //点击标签
+      bindText(txt) {
+        Http.setBookComments(this.bookDetail.id, txt,(data)=>{
+          this._addComments(txt)
+        })
+        this.cancelClick()
+      },
+      //取消输入弹框
       cancelClick() {
         this.clicking = false;
       },
       onInputClick() {
         this.clicking = !this.clicking;
-        console.log(this.clicking);
       },
       onInputChange() {
         if (!this.inputValue) {
           return
         }
-        for (let i = 0, l = this.comments.length; i < l; i++) {
-          let val = this.comments[i]
-          if (val.content === this.inputValue) {
-            val.nums++;
-            break;
-          } else if (i + 1 === l) {
-            this.comments.push({
-              "content": this.inputValue,
-              "nums": 1
-            });
-          }
-        }
+        const bid = this.bookDetail.id
+        const txt = this.inputValue
+        Http.setBookComments(bid, txt,(data)=>{
+          this._addComments(txt)
+        })
         this.cancelClick()
         this.inputValue = '';
       },
+      //数组添加评论
+      _addComments(txt) {
+        for (let i = 0, l = this.comments.length; i < l; i++) {
+          let val = this.comments[i]
+          if (val.content === txt) {
+            val.nums++
+            break
+          } else if (i + 1 === l) {
+            this.comments.push({
+              "content": txt,
+              "nums": 1
+            })
+          }
+        }
+      }
     },
     mounted() {
       this.id = this.$route.params.id;
       console.log(this.id);
-      Http.getDetailInfo((res) => {
+      Http.getDetailInfo(this.id,(res) => {
         this.bookDetail = res;
+        Http.getLike(res.type,res.id,(data)=>{
+          this.like_status = data.like_status;
+          this.fav_nums = data.fav_nums;
+        })
       });
-      Http.getDetailCommit((res) => {
+      Http.getDetailCommit(this.id,(res) => {
         this.comments = res.comment;
       });
     }

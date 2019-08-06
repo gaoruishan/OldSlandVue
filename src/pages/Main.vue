@@ -7,7 +7,7 @@
       <main-my v-show="tabBars[2].name===selected"/>
     </mt-tab-container>
     <!--底部tabbar-->
-    <mt-tabbar fixed :style="this.$global.fixedHeight" v-model="selected">
+    <mt-tabbar fixed :style="tabBarHeight" v-model="selected">
       <mt-tab-item :id="tabBars[0].name">
         <img slot="icon" :src="switchImg(selected,0)">
         {{tabBars[0].name}}
@@ -26,7 +26,7 @@
       </mt-tab-item>
     </mt-tabbar>
     <!--空白块 修改底部tabbar遮挡问题-->
-    <div :style="this.$global.blockTabBar"></div>
+    <div :style="blockTabBar"></div>
   </div>
 </template>
 
@@ -39,25 +39,11 @@
     name: 'App',
     data() {
       return {
-        selected: '流行',
-        tabBars: [
-          {
-            name: '流行',
-            selectedImg: './static/tab/classic@highlight.png',
-            unselectImg: './static/tab/classic.png',
-          },
-          {
-            name: '书单',
-            selectedImg: './static/tab/book@highlight.png',
-            unselectImg: './static/tab/book.png',
-          },
-          {
-            name: '喜欢',
-            selectedImg: './static/tab/my@highlight.png',
-            unselectImg: './static/tab/my.png',
-          },
-        ],
-        showRed: false
+        tabBarHeight: this.$global.fixedHeight,
+        blockTabBar: this.$global.blockTabBar,
+        selected: this.$global.mainTabBar.selected,
+        tabBars: this.$global.mainTabBar.tabBars,
+        showRed: this.$global.mainTabBar.showRed,
       }
     },
     components: {
@@ -65,11 +51,14 @@
       MainBook,
       MainMy
     },
-    created() {
-      console.log("main-created")
+    activated() {
+      console.log("main-activated")
     },
     mounted() {
-      console.log("main-mounted")
+      // 添加window 的resize事件监听
+      window.onresize = () => {
+        console.log('window.onresize')
+      }
     },
     methods: {
       switchImg(selected, i) {

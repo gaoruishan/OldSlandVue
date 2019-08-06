@@ -61,7 +61,8 @@
             map.panTo(r.point);
             point = r.point;
             console.log('位置：' + r.point.lng + ',' + r.point.lat);
-          } else {// 2,IP定位
+          } else {
+            // 2,IP定位
             let myCity = new BMap.LocalCity();
             myCity.get((result) => {
               let cityName = result.name;

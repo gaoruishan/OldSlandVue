@@ -17,7 +17,7 @@
           <span>关于我们</span>
         </div>
         <div @click='onMyBook' class='about'>
-          <span class='head-about'>{{12}}</span>
+          <span class='head-about'>{{bookCount}}</span>
           <span>我的书单</span>
         </div>
       </div>
@@ -36,7 +36,7 @@
 
 <script>
   import LikeBookCmp from './components/MyLikeCmp'
-  import Http from '../../Http'
+  import Http from '../../http'
 
   export default {
     name: 'MainMy',
@@ -46,24 +46,27 @@
       return {
         about: "",
         userInfo: {},
-        likeBookList: []
+        likeBookList: [],
+        bookCount:0,
       }
     },
     methods: {
       onStudy() {
-        this.$router.push('/my/course');
+        this.$router.push('/my/course')
       },
       onAbout() {
-        this.$router.push('/my/about');
+        this.$router.push('/my/about')
       },
       onMyBook() {
-        this.$router.push('/my/mybook');
+        this.$router.push('/my/mybook')
       },
     },
     mounted() {
-      Http.getClassicData((res) => {
-        console.log('%s%o', 'my:', res);
-        this.likeBookList = res;
+      Http.getLikeClassicData((res) => {
+        this.likeBookList = res
+      })
+      Http.getLikeBookCount((res) => {
+        this.bookCount = res.count
       })
     }
   }

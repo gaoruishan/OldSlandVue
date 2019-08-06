@@ -104,4 +104,8 @@ export default {
       }
     }
   },
+  // 添加window 的resize事件监听
+  // window.onresize = () => {
+  //   console.log('  window.onresize ')
+  // }
 }
