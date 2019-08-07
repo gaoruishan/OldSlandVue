@@ -18,7 +18,7 @@ module.exports = {
         target: 'https://gaoruishan.cn:3000/v1/',
         changeOrigin:true,
         pathRewrite: {
-          '^/api': ''
+          '^/api': '/'
         }
       }
     },
@@ -26,7 +26,7 @@ module.exports = {
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
-    autoOpenBrowser: false,
+    autoOpenBrowser: true,
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
@@ -57,7 +57,6 @@ module.exports = {
     // 1,APP发布的根目录，通常本地打包dist后打开文件会报错，此处修改为./。
     // 2,Web发布的根目录,如果是上线的文件，可根据文件存放位置进行更改路径 /travel/
     assetsPublicPath: './',
-
     /**
      * Source Maps
      */

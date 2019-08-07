@@ -25,10 +25,12 @@
     </div>
     <img class='like-icon' src='../../assets/images/my/like.png'/>
     <div class='book-list'>
-      <div v-for="(item,i) of likeBookList" :key="i">
+      <div  v-for="(item,i) of likeBookList" :key="i">
         <like-book-cmp :book="item" :movie="item.type==100" :music="item.type==200"
                        :essay="item.type==300"/>
       </div>
+      <!--填充block块-->
+      <div style="width: 2.8rem" v-show="(likeBookList.length%2)===1" />
     </div>
   </div>
 
@@ -47,7 +49,7 @@
         about: "",
         userInfo: {},
         likeBookList: [],
-        bookCount:0,
+        bookCount: 0,
       }
     },
     methods: {
@@ -60,15 +62,26 @@
       onMyBook() {
         this.$router.push('/my/mybook')
       },
+      initData() {
+        Http.getLikeClassicData((res) => {
+          this.likeBookList = res
+        })
+        Http.getLikeBookCount((res) => {
+          this.bookCount = res.count
+        })
+      }
     },
+
     mounted() {
-      Http.getLikeClassicData((res) => {
-        this.likeBookList = res
-      })
-      Http.getLikeBookCount((res) => {
-        this.bookCount = res.count
-      })
-    }
+      this.initData()
+      //监听事件
+      this.$bus.on('mylike',this.initData)
+    },
+    beforeDestroy() {
+      //销毁事件
+      this.$bus.off('mylike', this.initData);
+    },
+
   }
 </script>
 
@@ -77,7 +90,6 @@
     display: flex;
     flex-direction: column;
   }
-
   .head {
     display: flex;
     flex-direction: column;

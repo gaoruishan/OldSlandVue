@@ -157,6 +157,13 @@
             })
           }
         }
+        //第一次 空需要添加
+        if (this.comments.length === 0) {
+          this.comments.push({
+            "content": txt,
+            "nums": 1
+          })
+        }
       }
     },
     mounted() {

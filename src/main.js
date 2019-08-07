@@ -24,12 +24,16 @@ import './lib/border.css'
 // 公共样式
 import './lib/common.css'
 // 全局变量
-import global from './lib/config'
+import config from './lib/config'
 // this.$global的方式调用
-Vue.prototype.$global = global;
+Vue.prototype.$global = config;
 
 Vue.use(MintUI);
 Vue.config.productionTip = false;
+
+//引入bus总线
+import VueBus from 'vue-bus';
+Vue.use(VueBus);
 
 /* eslint-disable no-new */
 new Vue({

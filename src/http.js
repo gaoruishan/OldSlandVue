@@ -1,11 +1,14 @@
 // 导入axios
 import axios from 'axios'
 import {Base64} from 'js-base64'
+import config from './lib/config'
 
 class Http {
 
   constructor() {
     this._axios = axios.create({
+      //  1、process.env.ADMIN_SERVER 是代理的URL。process.env.API是打包的 api 。這句判断是如果 代理没有，那么走后面的。这个是js短路
+      baseURL: process.env.API,
       timeout: 10 * 1000, // 请求超时时间设置
       crossDomain: true,
     })
@@ -19,6 +22,9 @@ class Http {
         throw new Error({
           message: 'request need url',
         })
+      }
+      if (process.env.API) {
+        reqConfig.url = reqConfig.url.replace("/api","")
       }
       // 默认使用 get 请求
       if (!reqConfig.method) {
@@ -190,7 +196,7 @@ class Http {
     const ua = navigator.userAgent
     console.log(ua)
     //测试用户:    {"account":"12361@qq.com","secret":"a123456112","type":101}
-    this._axios.post('/api/token', this.$global.testAccount
+    this._axios.post('/api/token', config.testAccount
     ).then((res) => {
       if (res.data) {
         localStorage.setItem("token", res.data.token)

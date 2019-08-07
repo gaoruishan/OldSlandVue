@@ -19,7 +19,7 @@
     data() {
       return {
         // 不缓存页面
-        excludePage: ['BookDetail']
+        excludePage: ['BookDetail','MainMy','My']
       }
     },
     created() {

@@ -1,24 +1,21 @@
 <template>
-  <div>
-    <div @click='onLikeBook' class="contain">
-      <div class='item-head'>
-        <span v-if="movie" class='item-type'>电影</span>
-        <span v-if="music" class='item-type'>音乐</span>
-        <span v-if="essay" class='item-type'>句子</span>
-        <like-cmp :like="book.like_status==1" :count="book.fav_nums"/>
-      </div>
-      <div v-show="movie||essay">
-        <img class='item-img' :src='book.image'/>
-        <span class='item-text'>{{book.content}}</span>
-      </div>
-      <div v-show="music" class="item-music">
-        <img class='item-img2' :src='book.image'/>
-        <div class='item-img-cricle'/>
-        <span class='item-text2'>{{book.content}}</span>
-      </div>
-
+  <div @click='onLikeBook' class="contain">
+    <div class='item-head'>
+      <span v-if="movie" class='item-type'>电影</span>
+      <span v-if="music" class='item-type'>音乐</span>
+      <span v-if="essay" class='item-type'>句子</span>
+      <like-cmp :dis-enable="true" :like="true" :count="book.fav_nums"/>
     </div>
-  </div>
+    <div v-show="movie||essay">
+      <img class='item-img' :src='book.image'/>
+      <span class='item-text'>{{book.content}}</span>
+    </div>
+    <div v-show="music" class="item-music">
+      <img class='item-img2' :src='book.image'/>
+      <div class='item-img-cricle'/>
+      <span class='item-text2'>{{book.content}}</span>
+    </div>
+    </div>
 
 </template>
 
@@ -39,7 +36,7 @@
     },
     methods: {
       onLikeBook() {
-        this.$router.push('/my/mylikedetail/' + this.book.id+"/"+this.book.type);
+        this.$router.push('/my/mylikedetail/' + this.book.id + "/" + this.book.type)
       }
     }
   }
@@ -60,7 +57,7 @@
     display: flex;
     flex-direction: row;
     justify-content space-between
-    padding: 20 * 0.01rem;
+    padding: 20 * 0.01rem 0 20 * 0.01rem 20 * 0.01rem;
   }
 
   .item-type {

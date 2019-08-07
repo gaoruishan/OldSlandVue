@@ -1,6 +1,8 @@
 'use strict'
 require('./check-versions')()
 
+console.log(process.argv.splice(2),'--------打印npm run build 后面第二个参数--------')
+
 process.env.NODE_ENV = 'production'
 
 const ora = require('ora')

@@ -20,6 +20,7 @@
           <div v-for="item in bookList" :key="item.id">
             <book-cmp :bookModel="item"/>
           </div>
+          <div style="width: 3.1rem" v-show="(bookList.length%2)===1" />
         </div>
       </mt-loadmore>
       <!--  最后一页 -->
